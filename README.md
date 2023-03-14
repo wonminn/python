@@ -107,11 +107,26 @@ print(a+b+c)
 a = 200
 b = 100
 result = a + b  
-result1 = a - b
-result2 = a*b
-result3 = a//b  
 print(a, '+', b, '=', result)  
-print(a, '-', b, '=', result1)  
-print(a, '*', b, '=', result2)  
+result1 = a - b
+print(a, '-', b, '=', result1)
+result2 = a*b
+print(a, '*', b, '=', result2)
+result3 = a//b  
+print(a, '//', b, '=', result3)
+```
+
+#### input() 함수를 이용한 계산기
+
+```
+a = int(input("첫번째 숫자를 입력해 주세요: "))
+b = int(input("두번째 숫자를 입력해 주세요: "))  
+result = a + b  
+print(a, '+', b, '=', result)  
+result1 = a - b  
+print(a, '-', b, '=', result1) 
+result2 = a*b  
+print(a, '*', b, '=', result2)
+result3 = a//b   
 print(a, '//', b, '=', result3)
 ```
