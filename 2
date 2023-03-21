@@ -118,3 +118,72 @@ if(a>50):
     print("a>100")  
 ```
 
+```
+fruit =['사과', '배', '감', '포도']
+fruit.append('수박')
+if '딸기' in fruit :
+  print("딸기가 있습니다")
+else:
+  print("딸기가 없습니다")
+print(fruit)
+```
+
+```
+import random
+number =[]
+for num in range(0,7):
+  number .append(random.randrange(1,46))
+print("생성된 리스트", number)
+```
+
+#### 반복문
+```
+for i in range(0, 3, 1): #시작값, 끝값+1, 증가값
+  print("%d 안녕하세요~" % i) #반복 내용
+  #print(i)
+print("반갑습니다^^")
+```
+
+```
+for i in range(1,9,1):
+  print("%d " % i, end="")
+print("\n")
+for i in range(1,9,1):
+  print("%d" % i, end=" ")
+```
+  
+```
+sum=0
+for i in range(1,11,1):
+  sum = sum + i
+print("1~10까지 합계: %d" % sum)
+```
+
+#### Quiz3 : 숫자 입력을 받아 1부터 입력된 숫자끼리의 합을 출력하시오
+```
+sum,num = 0,0
+num = int(input("숫자를 입력하세요: "))
+
+for i in range(1, num+1):
+    sum = sum + i
+
+print("1부터", num, "까지의 합은", sum, "입니다.")
+```
+
+#### 중첩 for문
+```
+num = int(input("구구단 수를 입력하세요: "))
+
+for i in range(1, 10):
+    print(num, "x", i, "=", num*i)
+```
+
+#### Quiz4 구구단을 2,3,4,5 출력 후 줄바꿔서 출력하시오
+```
+for i in range(2, 10, 4):
+    for j in range(1, 10):
+        for k in range(i, i+4):
+            print(f"{k} x {j} = {k*j}", end="\t")
+        print()
+    print()
+```
