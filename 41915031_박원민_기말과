@@ -1,0 +1,117 @@
+```
+!pip install pandas
+```
+
+```
+!sudo apt-get install -y fonts-nanum
+!sudo fc-cache -fv
+!rm ~/.cache/matplotlib -rf
+```
+
+```
+import matplotlib.pyplot as plt
+
+plt.rc('font', family='NanumBarunGothic')
+```
+
+```
+import requests
+```
+
+```
+url = 'http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?
+       serviceKey=fBWhyni8bLYIczJW0zwV26tWmF3qTOrvyllotGeZI8G7M10B%2FzEM1K644qK5ZDMYH5xFGPsa10OshELb2PESgQ%
+       3D%3D&pageNo=1&numOfRows=1000'
+```
+
+```
+url = 'http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?
+       serviceKey=fBWhyni8bLYIczJW0zwV26tWmF3qTOrvyllotGeZI8G7M10B%2FzEM1K644qK5ZDMYH5xFGPsa10OshELb2PESgQ%
+       3D%3D&pageNo=1&numOfRows=1000'
+resp = requests.get(url)
+resp
+```
+
+```
+resp.content
+```
+
+```
+resp.content.decode('utf-8')
+```
+
+```
+import xmltodict
+```
+
+```
+!pip install xmltodict
+```
+
+```
+xmltodict.parse(resp.content.decode('utf-8'))
+```
+
+```
+data = xmltodict.parse(resp.content.decode('utf-8'))
+```
+
+```
+data['response']['body']['items']['item']
+```
+
+```
+import pandas as pd
+```
+
+```
+pd.DataFrame(data['response']['body']['items']['item'])
+```
+
+```
+df = pd.DataFrame(data['response']['body']['items']['item'])
+df
+```
+
+```
+df.to_csv('table.csv', encoding='utf-8-sig')
+```
+
+```
+import folium
+from IPython.display import display
+
+# 문자열을 실수로 변환하는 함수
+def convert_to_float(value):
+    try:
+        return float(value)
+    except ValueError:
+        return None
+
+# 문자열을 실수로 변환하여 새로운 열 추가
+df['lat_float'] = df['lat'].apply(convert_to_float)
+df['longi_float'] = df['longi'].apply(convert_to_float)
+
+# 지도 생성
+m = folium.Map(location=[df['lat_float'].mean(), df['longi_float'].mean()], zoom_start=10)
+
+# 데이터프레임의 각 행에 대해 Marker를 생성하여 지도에 추가
+for index, row in df.iterrows():
+    lat = row['lat_float']
+    longi = row['longi_float']
+    name = row['addr']  # 데이터프레임에서 사용할 열의 이름을 수정해야 합니다.
+
+    # 실수값인 경우에만 Marker를 생성하여 지도에 추가
+    if lat is not None and longi is not None:
+        folium.Marker(
+            location=[lat, longi],
+            tooltip=name,
+        ).add_to(m)
+
+# 지도를 표시
+display(m)
+
+m.save('map.html')
+```
+
+ 
